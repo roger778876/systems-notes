@@ -36,3 +36,5 @@ scanf is prone to user input errors, so we can use fgets
 - pid 1 is the init process; stopping pid 1 will stop OS
 - to see running processes, run ```ps``` in command line
   - by default, you'll only see processes that you are owner of and processes attached to terminal sessions (TTY #)
+  - ```ps -a``` will see all processes attached to terminals
+  - ```ps -ax``` will see all all processes
