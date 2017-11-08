@@ -1,7 +1,7 @@
 ## 11/6 Aim: Are your processes running? Then you should go out and catch them!
 scanf is prone to user input errors, so we can use fgets
 
-#### fgets - <stdio.h>
+**fgets - <stdio.h>**
 - reads in from a file stream and stores in a string
 - ex: ```fgets(<DEST>, <BYTES>, <FILE POINTER>)```
   - reads at most BYTES - 1 characters from file stream FILEPOINTER and stores into DEST
