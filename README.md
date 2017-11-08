@@ -22,6 +22,22 @@ Sometimes you need to send info to processes; we can use Signals
 - **kill**
   - ```kill(<PID>, <SIGNAL #>)```
     - returns 0 on success or -1 (errno) on failure
+- reasons to catch/intercept a signal:
+  - shut things down gracefully
+  - not interrupt writing to a file
+- **sighandler**
+  - to intercept signals in C you must create a signal handling function
+  - some signals can't be caught (ex: SIGKILL 9)
+  - ```static void sighandler(int signo){...}```
+    - must be static, void, and take single int parameter
+    - static functions don't get put onto stack; separate area of memory
+    - static functions can only be called from within the same file
+      - therefore sighandler must be in same file as "main"
+    - ```if (signo == <SIGNAL>) {...}``` inside sighandler
+      - we need to attach <SIGNAL> to this function
+        - put ```signal(<SIGNAL>, sighandler)``` in main
+        - for every signal you want to catch, you need both if (...) and signal(...)
+      - this will override the default signal action with {...}
 
 
 ## 11/6 Aim: Are your processes running? Then you should go out and catch them!
