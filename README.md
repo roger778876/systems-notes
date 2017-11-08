@@ -1,3 +1,29 @@
+## 11/8 Sending mixed signals
+Sometimes you need to send info to processes; we can use Signals
+
+**Signals**
+- limited way of sending info to a process
+- sends an integer value to a process
+- ex: ctrl-c to interrupt a program (SIGINT)
+- ```man 3 signal``` to see list of signal numbers (1-31)
+  - 30 & 31, (SIGUSR1 & SIGUSR2) have been put aside for user use
+
+**kill**
+- command line utility to send a signal to a process
+- ```kill <PID>``` by default sends signal 15 (SIGTERM) to PID; terminates process PID
+- can use different signal # to send different signal
+  - ex: ```kill -<SIGNAL #> <PID>``` 
+
+**killall**
+- ```killall [-<SIGNAL #>] <PROCESS>```
+- sends signal to all processes with PROCESS as the name
+
+**Signal handling in C programs - <signal.h>**
+- **kill**
+  - ```kill(<PID>, <SIGNAL #>)```
+    - returns 0 on success or -1 (errno) on failure
+
+
 ## 11/6 Aim: Are your processes running? Then you should go out and catch them!
 scanf is prone to user input errors, so we can use fgets
 
@@ -34,9 +60,9 @@ scanf is prone to user input errors, so we can use fgets
 - "multitasking" seems to happen because the processor switches between all active processes so quickly
 
 **pid**
-- every process has identifier called pid
+- every process has unique identifier called pid
 - pid 1 is the init process; stopping pid 1 will stop OS
 - to see running processes, run ```ps``` in command line
   - by default, you'll only see processes that you are owner of and processes attached to terminal sessions (TTY #)
   - ```ps -a``` will see all processes attached to terminals
-  - ```ps -ax``` will see all all processes
+  - ```ps -aux``` will see all all processes
