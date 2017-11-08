@@ -13,25 +13,25 @@ scanf is prone to user input errors, so we can use fgets
   - reads a line of text from stdin/user input
 - downside to fgets:
   - it reads in a string; so we can use sscanf
-#### FILE POINTER
+**FILE POINTER**
   - ```FILE * ``` type, more complex than a file descriptor
   - ```stdin``` is a FILE * variable
   - ```fopen(...)``` returns file pointer instead of descriptor
-#### Other
+**Other**
 - "blocking": when program is waiting for something to happen before proceeding (ex. stdin/user input)
 
-#### sscanf - <stdio.h>
+**sscanf - <stdio.h>**
 - scans a string and extracts values based on a format string
 - ex: ```sscanf(<SOURCE STRING>, <FORMAT STRING>, <VAR1>, <VAR2>, ...)```
   - ex: ```sscanf(s, "%d %f", %i, %f);``` ; expects integer space floatingpoint
   
-#### Processes
+**Processes**
 - every running program is a process
   - processes can create subprocesses, but they're the same as the original processes
 - processor can handle 1 process per cycle (per core)
 - "multitasking" seems to happen because the processor switches between all active processes so quickly
 
-##### pid
+**pid**
 - every process has identifier called pid
 - pid 1 is the init process; stopping pid 1 will stop OS
 - to see running processes, run ```ps``` in command line
