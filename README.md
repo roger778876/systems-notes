@@ -13,10 +13,12 @@ scanf is prone to user input errors, so we can use fgets
   - reads a line of text from stdin/user input
 - downside to fgets:
   - it reads in a string; so we can use sscanf
+  
 **FILE POINTER**
   - ```FILE * ``` type, more complex than a file descriptor
   - ```stdin``` is a FILE * variable
   - ```fopen(...)``` returns file pointer instead of descriptor
+  
 **Other**
 - "blocking": when program is waiting for something to happen before proceeding (ex. stdin/user input)
 
