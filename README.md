@@ -6,17 +6,22 @@
 - exec replaces the current process with the new program; after exec, current program is gone
 
 **execlp(NAME OF FILE>, <PROGRAM, ARGUMENTS, ...>, NULL)**
-  - PROGRAM should == NAME OF FILE (ex: ```execlp("ls", "ls", "-a", NULL)```)
+  - PROGRAM should == NAME OF FILE
+  - ex: ```execlp("ls", "ls", "-a", NULL)```)
   - rest of current file will not run anymore
   - the "p" in execlp means PATH; will search for program in system's PATH; you can also put full file path in NAME OF FILE
   - new command will completely replace original program; keeps same PID
   
-**execvp(NAME OF FILE>, <ARGUMENT ARRAY>)**
+**execvp(NAME OF FILE>, <ARGUMENT ARRAY)**
+  - first argument is still program file
+  - argument array is an array of strings
+  - last argument must be NULL
+  - ex: ```char *args[5];
+           args[0] = "ls";
+           args[1] = "-a";
+           args[2] = NULL;
+           execvp(args[0], args)```
   
-  
-  
-
-
 
 ## 11/8 Sending mixed signals
 Sometimes you need to send info to processes; we can use Signals
