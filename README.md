@@ -4,7 +4,16 @@
 **exec family - <unistd.h>**
 - there are many C functions that can be used to run other programs from within
 - exec replaces the current process with the new program; after exec, current program is gone
-**execlp(PROGRAM>, <ARGUMENTS, ...>, NULL)**
+
+**execlp(NAME OF FILE>, <PROGRAM, ARGUMENTS, ...>, NULL)**
+  - PROGRAM should == NAME OF FILE (ex: ```execlp("ls", "ls", "-a", NULL)```)
+  - rest of current file will not run anymore
+  - the "p" in execlp means PATH; will search for program in system's PATH; you can also put full file path in NAME OF FILE
+  - new command will completely replace original program; keeps same PID
+  
+**execvp(NAME OF FILE>, <ARGUMENT ARRAY>)**
+  
+  
   
 
 
