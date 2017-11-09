@@ -1,6 +1,12 @@
 ## 11/9 Time to make an executive decision.
 **execlp & execvp**
 
+**exec family - <unistd.h>**
+- there are many C functions that can be used to run other programs from within
+- exec replaces the current process with the new program; after exec, current program is gone
+- **execlp(<PROGRAM>, <ARGUMENTS, ...>, NULL)**
+  
+
 
 
 ## 11/8 Sending mixed signals
