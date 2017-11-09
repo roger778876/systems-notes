@@ -1,3 +1,8 @@
+## 11/9 Time to make an executive decision.
+**execlp & execvp**
+
+
+
 ## 11/8 Sending mixed signals
 Sometimes you need to send info to processes; we can use Signals
 
