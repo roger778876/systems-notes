@@ -17,13 +17,9 @@
   - argument array is an array of strings
   - last argument must be NULL
   - ex: ```char *args[5];
-  
            args[0] = "ls";
-           
            args[1] = "-a";
-           
            args[2] = NULL;
-           
            execvp(args[0], args)```
   
 
