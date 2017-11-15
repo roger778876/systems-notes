@@ -1,3 +1,22 @@
+## 11/15 Playing favorites
+**endian-ness**
+- byte order of values
+- little endian vs. big endian
+  - little endian: the smallest byte comes first
+  - big endian: the largest byte comes first; ex: IP addresses
+- ex: int x = 32;
+  - little endian: 0 0 0 32
+  - big endian: 32 0 0 0 
+- if you write a data file on a big endian machine, then someone reads it on little endian machine, there can be problems
+- endian-ness must be the same otherwise numbers will be rearranged
+
+**wait & status**
+- wait returns child PID
+- first byte of status is 0 or signal value (when doing kill)
+- second byte of status is return value (WEXITSTATUS(status))
+- packing lots of info in a single integer (4 bytes)
+
+
 ## 11/9 Time to make an executive decision.
 **execlp & execvp**
 
