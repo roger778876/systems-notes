@@ -1,3 +1,28 @@
+## 11/17 Ceci n'est pas une pipe
+Pipes can let us pass information between processes
+
+**Pipe**
+- a conduit between 2 separate processes on the same computer
+- have 2 ends: read and write
+- unidirectional; a single pipe must be either read or write only in a process
+- behave just like files
+  - represented in file table
+  - use file descriptors
+- you can transfer any data you want through a pipe using read/write
+- unnamed pipes have no external identifier
+  - can't be identified outside of the program it was created in
+  - like a secret connection; other programs can't identify it
+  
+**pipe - <unistd.h>**
+- ```pipe(int DESCRIPTORS[2])```
+  - creates unnamed pipe
+  - returns 0 if pipe was created, -1 if error
+  - opens both ends of the pipe as files for reading & writing
+    - no particular read/write end when you create it; it's how you use it that specifies the end
+  - DESCRIPTORS: array of 2 ints that will contain the file descriptors for both ends
+- ```close(DESCRIPTORS[0 or 1])``` to close read or write function of end of pipe
+
+
 ## 11/15 Playing favorites
 **endian-ness**
 - byte order of values
