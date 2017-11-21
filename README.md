@@ -1,3 +1,34 @@
+## 11/21 A pipe by any other name...
+Named pipes aka FIFOs, first in first out (just like queues)
+
+**Named pipes**
+- same as unnamed pipes except they have a name that can be used to identify them via different programs
+- unidirectional
+- you just need to open a named pipe
+
+**mkfifo PIPENAME**
+- shell command to make a FIFO
+- creates a pipe file; has the "p" permission
+- ```cat mario``` & ```cat > mario```
+- pipes only exist in memory; therefore, it has a size of 0 on the disk
+  - still has entry in file table, just refers to place in memory
+- you can write from more than one process; ex: use ```cat > mario``` twice
+  - you can read from more than one process, but its random which one will read the pipe data
+- as long as both ends of the pipe have connections, the pipe will stay open
+- pipe will still work even if you delete the file
+  - because the connection still exists in memory, not on the disk
+  - basically turns into an unnamed pipe
+  
+**mkfifo - <sys/types.h> <sys/stat.h>**
+- C function to create a FIFO
+- returns 0 on success and -1 on error
+- once created, the FIFO acts like a regular file
+  - we can use open, read, write, close on it
+- ```mkfifo(name, permissions)```
+  - FIFOs will block on open until both ends of the pipe have a connection
+    - must open on both ends of pipe
+
+
 ## 11/17 Ceci n'est pas une pipe
 Pipes can let us pass information between processes
 
