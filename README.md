@@ -1,3 +1,48 @@
+## 11/27 Redirection... SQUIRREL
+
+**File Redirection**
+- changing the usual input/output behavior of a program
+
+**Command line redirection**
+- ```>```
+  - redirects stdout to a file by overwriting
+  - ex: ```ps > ps_file```; ```COMMAND > FILE```
+  - ex: ```cat file1 > file2``` will copy contents of file1 to file2 (same as cp)
+  - ex: ```cat ``` will just open stdin and print to stdin; typing something will just print it again
+    - type end of file character to exit
+    - ```cat > file``` will write input to file
+- ```>>```
+  - redirects stdout to a file by appending, not overwriting
+- ```2>```
+  - redirects stderr to a file by overwriting
+  - ```2>>``` to append
+  - useful for log files to keep track of errors; ex: for web servers or database servers
+- ```&>```
+  - redirects both stdout and stderr to a file by overwriting
+  - ```&>>``` to append
+  
+- ```<```
+  - redirects stdin from a file
+  - useful for testing programs; if your program reads input, you can just make it read from a file
+- ```|``` (pipe)
+  - redirects stdout of one command into stdin of the next
+  - ex: ```ls | wc``` will take output of ls and put into wc
+  
+**Redirection in code**
+- ```dup``` - <unistd.h>
+  - duplicates an existing entry in the file table
+  - returns a new file descriptor for the duplicate entry
+  - ```dup(FD)```
+    - returns the new file descriptor
+- ```dup2``` - <unistd.h>
+  - ```dup2(FD1, FD2)```
+  - redirects FD2 to FD1
+  - duplicates the behavior for FD1 at FD2
+    - replaces FD2 with FD1 in the file table
+  - problem: you lose what FD2 was
+    - fix by first dup(FD2), then dup2(); this will keep FD2 in reserve so you can undo it later
+  
+
 ## 11/21 A pipe by any other name...
 Named pipes aka FIFOs, first in first out (just like queues)
 
