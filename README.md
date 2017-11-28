@@ -1,3 +1,53 @@
+## 11/28 C, the ultimate hipster, using # decades before it was cool
+ex: ```#include <stdio.h>```
+
+**#**
+- used to provide preprocessor instructions
+- aka: directives
+- looked for & handled by gcc first; you can put it anywhere in the code, not just the top
+- separate from C code
+
+**#include**
+- ```#include <LIBRARY>``` or ```#include "LIBRARY"```
+- link libraries to your code
+- means take all the contents of LIBRARY file and replace the #include line with it
+
+**#define**
+- ```#define <NAME> <VALUE>```
+- like find & replace
+- replaces all occurences of NAME with VALUE in the code
+- don't include semicolons or equal signs!
+- ```#define TRUE 1``` will replace every TRUE with 1
+- similar to how O_RDONLY & O-WRONLY works
+- ***macros***
+  - like functions, but still just find & replace
+  - ```#define SQUARE(x) x * x```
+    - says anytime you see SQUARE and a value in parenthesis, replace it with value * value
+    - ```int y = SQUARE(9);``` will become ```int y = 9 * 9;```
+  - ```#define MIN(x, y) x < y ? x : y```
+    - uses ternary operation to return minimum of x & y
+- ***conditional statement***
+  - useful for removing problem of double defining
+  - use in header files
+  - ```
+       #ifndef <IDENTIFIER>
+       ...CODE...
+       #endif
+    ``````
+  - ifndef = if not defined
+  - if the identifier has been defined, ignore all the code up to the endif statement
+  - ex:
+    ```
+       #ifndef PARSE_H
+        #define PARSE_H
+        ...headers...
+       #endif
+       ```
+    - this will stop from double defining things
+    - this is how you should usually define things
+    
+
+
 ## 11/27 Redirection, how does it...SQUIRREL?
 
 **File Redirection**
