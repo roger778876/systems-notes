@@ -1,4 +1,4 @@
-## 11/27 Redirection... SQUIRREL
+## 11/27 Redirection, how does it...SQUIRREL?
 
 **File Redirection**
 - changing the usual input/output behavior of a program
