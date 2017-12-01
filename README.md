@@ -1,3 +1,52 @@
+## 12/1 Sharing is caring!
+Variables that are shared between parent and child
+
+**Shared memory**
+- <sys/shm.h>, <sys/ipc.h>, <sys/types.h>
+- a segment of heap memory that can be accessed by multiple processes
+  - you would have pointers in parent and child that refer to the shared memory
+  - shared memory can be accessed from any process, not just parent/child
+- shared memory is accessed via a ***key*** (integer) that is known by any process that needs to access it
+  - similar purpose to a file name
+  - to interact with the same shared memory, you just need the same key
+- shared memory is not released when a program exits
+  - only released when you say you don't want it anymore or reboot computer
+  
+**5 Shared memory operations**
+- Create the segment (happens once in total)
+  - you need to specify the size
+  - ```shmget(KEY, SIZE, FLAGS)```
+    - creates or accesses a shared memory segment; similar to opening a file (either creates or accesses)
+    - returns a shared memory descriptor (like a file descriptor) or -1 if errno
+      - will be different from the key
+    - key: unique integer identifier for the shared memory segment (like a file name)
+      - a good place to put this is in header; ```#define KEY ___```
+    - size: how much memory to request; in bytes
+    - flags: includes permissions for the segment, combined with bitwise or ( | )
+      - ```IPC_CREAT```: create the segment; if segment is new, will set all values to 0
+      - ```IPC_EXCL```: fail if the segment already exists and ```IPC_CREAT``` is on
+    ```
+      int sd;
+      sd = shmget(KEY, sizeof(double), IPC_CREAT | 0600);
+    ```
+- Access the segment (happens once per process)
+- Attach the segment to a variable (happens once per process)
+  - then you'll get regular pointer access to the shared memory
+  - ```shmat(DESCRIPTOR, ADDRESS, FLAGS)```
+    - attach a shared memory segment to a variable
+    - returns a pointer to the segment, or -1 if errno
+    - descriptor: the return value of shmget
+    - address: if 0, the OS will provide the appropriate address
+      - just use 0
+    - flags: usually 0
+      - ```SHM_RDONLY```: makes the memory read only (useful for processes with only read permissions)
+    ```
+      p = shmat(sd, 0, 0);
+      *p = 222;
+    ```
+- Detach the segment from a variable (happens once per process)
+- Remove the segment (happens once in total)
+
 ## 11/28 C, the ultimate hipster, using # decades before it was cool
 ex: ```#include <stdio.h>```
 
