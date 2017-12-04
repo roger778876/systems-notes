@@ -1,4 +1,4 @@
-## 12/1 Sharing is caring!
+## 12/1 Sharing is caring!, 12/4 Memes
 Variables that are shared between parent and child
 
 **Shared memory**
@@ -9,7 +9,7 @@ Variables that are shared between parent and child
 - shared memory is accessed via a ***key*** (integer) that is known by any process that needs to access it
   - similar purpose to a file name
   - to interact with the same shared memory, you just need the same key
-- shared memory is not released when a program exits
+- shared memory is ***not released*** when a program exits
   - only released when you say you don't want it anymore or reboot computer
   
 **5 Shared memory operations**
@@ -17,12 +17,12 @@ Variables that are shared between parent and child
   - you need to specify the size
   - ```shmget(KEY, SIZE, FLAGS)```
     - creates or accesses a shared memory segment; similar to opening a file (either creates or accesses)
-    - returns a shared memory descriptor (like a file descriptor) or -1 if errno
+    - returns a shared memory int descriptor (like a file descriptor) or -1 if errno
       - will be different from the key
-    - key: unique integer identifier for the shared memory segment (like a file name)
-      - a good place to put this is in header; ```#define KEY ___```
-    - size: how much memory to request; in bytes
-    - flags: includes permissions for the segment, combined with bitwise or ( | )
+    - KEY: unique integer identifier for the shared memory segment (like a file name)
+      - a good place to put this is in header; ```#define KEY ___```; can be any int
+    - SIZE: how much memory to request; in bytes
+    - FLAGS: includes permissions for the segment, combined with bitwise or ( | )
       - ```IPC_CREAT```: create the segment; if segment is new, will set all values to 0
       - ```IPC_EXCL```: fail if the segment already exists and ```IPC_CREAT``` is on
     ```
@@ -35,17 +35,38 @@ Variables that are shared between parent and child
   - ```shmat(DESCRIPTOR, ADDRESS, FLAGS)```
     - attach a shared memory segment to a variable
     - returns a pointer to the segment, or -1 if errno
-    - descriptor: the return value of shmget
-    - address: if 0, the OS will provide the appropriate address
+    - DESCRIPTOR: the return value of shmget
+    - ADDRESS: if 0, the OS will provide the appropriate address
       - just use 0
-    - flags: usually 0
+    - FLAGS: usually 0
       - ```SHM_RDONLY```: makes the memory read only (useful for processes with only read permissions)
     ```
       p = shmat(sd, 0, 0);
       *p = 222;
     ```
 - Detach the segment from a variable (happens once per process)
+  - ```c
+    shmdt(POINTER)
+    // returns 0 if successful, -1 if error
+    ```
+    - detach a variable from a shared memory segment
+      - after detach, we will still have a number that points to a piece of memory we can't access
+    - returns 0 if successful, or -1 if error
+    - POINTER: address used to access the segment
 - Remove the segment (happens once in total)
+  - ```shmctl(DESCRIPTOR, COMMAND, BUFFER)```
+    - perform operations on the shared memory segment
+    - each shared memory segment has metadata that can be stored in a struct
+      - ```struct shmid_ds```
+      - ex: last access, size, pid of creator, pid of last modifier
+    - DESCRIPTOR: return value of shmget
+    - COMMAND: 
+      - IPC_RMID: removes a shared memory segment
+      - IPC_STAT: populate the BUFFER with segment metadata
+      - IPC_SET: set some of the segment metadata from BUFFER
+    - BUFFER: ```struct shmid_ds *```
+- ```ipcs -m``` in terminal to list shared memory segments
+- ```ipcrm -m SHMID``` to remove shared memory segment
 
 ## 11/28 C, the ultimate hipster, using # decades before it was cool
 ex: ```#include <stdio.h>```
