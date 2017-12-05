@@ -1,3 +1,46 @@
+## 12/5 How do we flag down a resource?
+How to control access to a shared resource (file, pipe, shared memory) such that no read/write conflicts can occur?
+Use semaphores.
+
+**Semaphores**
+- created by Edsger Dijkstra
+- IPC construct used to control access to a shared resource (file or shared memory)
+- mostly commonly used as a counter representing how many processes can access a resource at a given time
+  - ex: if a semaphore has value of 3, then it can have 3 active "users"
+  - if a semaphore has a value of 0, then it is unavailable
+- most semaphore operations are ***atomic***, aka they will not be split up into multiple processor instructions
+
+**Semaphore Operations**
+- Create a semaphore
+- Set an initial value
+- Remove a semaphore
+- the above are not atomic
+- Up(S) or V(S)
+  - atomic
+  - release the semaphore to signal you are done with its associated resource
+  - Pseudocode: S++
+- Down(S) or P(S)
+  - atomic
+  - attempt to take the semaphore
+  - if semaphore value is 0, then waits for it to be available
+  - Pseudocode: ```while (S == 0) { block } S--;```
+  
+- It is our job to attach semaphores to resources
+
+**Semaphores in C**
+- ```<sys/types.h>, <sys/ipc.h>, <sys/sem.h>```
+- ***```semget(KEY, AMOUNT, FLAGS)```***
+  - create/get access to a semaphore
+  - not the same as Up(S) or Down(S); doesn't modify the semaphore
+  - returns a semaphore int descriptor or -1 errno
+  - ***KEY***: unique semaphore identifier
+  - ***AMOUNT***: semaphores are stored as sets of one or more
+    - specifies the # of semaphores to create/get in the set
+  - ***FLAGS***: includes permissions for the semaphore; combine using bitwise or ( | )
+    - IPC_CREAT: create the semaphore and set value to 0
+    - IPC_EXCL: fail if the semaphore already exists and IPC_CREAT is on
+
+
 ## 12/1 Sharing is caring!, 12/4 Memes
 Variables that are shared between parent and child
 
