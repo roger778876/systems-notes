@@ -1,3 +1,46 @@
+## 12/7 What's a semaphore? To control resources!
+```semctl()``` and Unions, ```semop()```
+
+***```semctl()```***
+- ***DATA***: variable for setting/storing semaphore metadata
+- ```union semun```
+  - you have to declare this union in your main c file on linux machines
+  ```c
+    union semun {
+      int val; // for SETVAL
+      struct semid_ds *buf; // for IPC_STAT and IPC_SET
+      unsigned short *array; // for SETALL
+      struct seminfo *__buf;
+    };
+  ```
+    - you will only be using one of these values at a time
+    - ***Unions***
+      - a C structure designed to hold only one value at a time from a group of potential values
+      - adding another value will remove the previously stored one
+      - just large enough to hold the largest piece of data that it can potentially contain
+
+- use ```ipcs -s``` in terminal to see current semaphores
+- use ```ipcrm -s ID``` in terminal to remove semaphore ID
+
+- ***```semop(DESCRIPTOR, OPERATION, AMOUNT)```***
+  - perform atomic semaphore operations
+  - you can Up/Down a semaphore by any integer value, not just 1
+    - if you Down the semaphore below 0, it will block
+  - ***DESCRIPTOR***: from semget()
+  - ***OPERATION***: a pointer to ```struct sembuf```
+    ```c
+      struct sembuf {
+        short sem_op;   // if Up, then any positive integer; if Down, then any negative integer;
+                        // if 0, then block until the semaphore reaches 0
+        short sem_num;  // the index of the semaphore that you want to perform on
+        short sem_flag; // SEM_UNDO: allow the OS to undo the given operation; useful when a program exits before it could
+                        // release a semaphore
+                        // IPC_NOWAIT: instead of waiting for the semaphore to be available, return an err
+      };
+    ```
+  - ***AMOUNT***: the amount of semaphores you want to operate on in the semaphore set
+  
+
 ## 12/5 How do we flag down a resource?
 How to control access to a shared resource (file, pipe, shared memory) such that no read/write conflicts can occur?
 Use semaphores.
