@@ -1,3 +1,7 @@
+## 12/11 Creating a handshake agreement.
+
+
+
 ## 12/7 What's a semaphore? To control resources!
 ```semctl()``` and Unions, ```semop()```
 
