@@ -1,5 +1,32 @@
 ## 12/11 Creating a handshake agreement.
+1. Client sends message to server (now the server knows it can receive data)
+2. Server sends confirmation message (now the client knows it can send and receive data)
+3. Client sends confirmation back (now the server knows it can send data)
+aka a "3-way handshake" in program communications b/c it takes 3 steps
 
+**Handshake**
+  - a procedure to ensure that a connection has been established between 2 programs
+  - both ends of the connection must verify that they can send and receive data to/from each other
+
+**Basic server/client design pattern**
+	- 2 named pipes between server & client
+		- but this lacks security b/c anything could send data
+	
+- ***Setup***
+	- Server creates a FIFO (Well known pipe) and waits for a connection
+	- Client creates a "private" FIFO
+- ***Handshake***
+	- Client connects to server and sends the private FIFO name, then waits for response
+	- Server receives the client's message and removes its well-known pipe
+		- this will keep out other clients but maintains the connection
+	- Server connects to client FIFO, sending an initial acknowledgement message
+	- Client receives server's message and removes its private FIFO
+	- Client sends response back to server
+- ***Operation***
+	- Server and client can now send information back and forth
+- ***Reset***
+	- Once the client terminates, server closes any connections to the client
+	- Server recreates the well-known pipe and waits for a new client
 
 
 ## 12/7 What's a semaphore? To control resources!
