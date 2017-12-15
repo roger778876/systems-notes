@@ -1,3 +1,67 @@
+## 12/15 Always tip your servers.
+```c
+	int server_handshake(...) {
+		int from_client;
+		char buffer[BUFFER SIZE];
+		
+		mkfifo("luigi", 0600);
+		
+		printf("server handshake: making wkp\n");
+		from_client = open("luigi", 0_RDONLY, 0);
+		read(from_client, buffer, sizeof(buffer));
+		printf("server handshake: received [%s]\n", buffer);
+		
+		remove("luigi");
+		
+		*to_client = open(buffer, 0_WRONLY, 0);
+		write(*to_client, buffer, sizeof(buffer));
+		
+		read(from_client, buffer, sizeof(buffer));
+		printf("server handshake received);
+		
+		return from_client;
+	}
+	
+	int client_handshake {
+		int from_server;
+		char buffer[BUFFER SIZE];
+		
+		*to_server = open("luigi", 0_WRONLY, 0);
+		
+		sprintf(buffer, "%d", getpid());
+		mkfifo(buffer, 0600);
+		
+		write(*to_server, buffer, sizeof(buffer));
+		
+		from_server = open(buffer, 0_RDONLY, 0);
+		read(from_server, buffer, sizeof(buffer));
+		
+		remove(buffer);
+		
+		write(*to_server, ACK,  sizeof(buffer));
+		
+		return 
+	}
+	
+	client.c
+	while (1) {
+		fgets(buffer, sizeof(buffer), stdin);
+		
+		write(to_server, buffer, sizeof(buffer));
+		read(from_server, buffer, sizeof(buffer));
+		printf("received: [%s]\n", buffer);
+	}
+	
+	server.c
+	while (1) {
+		from_client = server_handshake(&to_client);
+		while (read(from_client, buffer, sizeof(buffer))) {
+			PROCESSING DATA
+			write(to_client, buffer, sizeof(buffer));
+		}
+	}
+```
+
 ## 12/11 Creating a handshake agreement.
 1. Client sends message to server (now the server knows it can receive data)
 2. Server sends confirmation message (now the client knows it can send and receive data)
