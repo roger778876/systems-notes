@@ -1,3 +1,22 @@
+## 12/18 Always tip your servers.
+Use sighandlers to remove server's pipe after Ctrl-C.
+
+How to handle multiple clients? The server can fork for every connection.
+**Forking server/client design pattern**
+- standard way of setting up server & multiple clients
+
+- ***Setup***
+- ***Handshake***
+	- Client connects to server and sends the private FIFO name. Waits for a response.
+	- Server receives client's message and forks off a ***subserver***
+		- subserver will have access to private pipe & server pipe
+	- Server closes and removes well-known pipe
+	- Subserver connects to client FIFO & sends acknowledgement message
+	- Client receives subserver message and removes its private pipe
+- ***Operation***
+	- Server recreates well-known pipe and waits for a new connection
+	
+
 ## 12/15 Always tip your servers.
 ```c
 	int server_handshake(...) {
