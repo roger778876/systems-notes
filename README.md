@@ -2,6 +2,7 @@
 Use sighandlers to remove server's pipe after Ctrl-C.
 
 How to handle multiple clients? The server can fork for every connection.
+
 **Forking server/client design pattern**
 - standard way of setting up server & multiple clients
 
