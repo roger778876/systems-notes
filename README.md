@@ -1,3 +1,34 @@
+## 2/2 Socket to me.
+
+**Socket**
+- a connection between 2 programs over a network
+- a socket corresponds to an IP (internet protocol) address & port pair
+
+- ***To use a socket***
+	1. Create the socket
+	2. Bind it to an IP address and port
+	3. Listen/initiate a connection (ex: server/client)
+	4. Send/receive data
+	
+**IP Addresses**
+- all devices connected to the internet need to have an IP address
+- IP addresses come in 2 types: IPv4 & IPv6
+- addreses are allocated in blocks to make routing easier
+- ***IPv4***: 4 byte addresses of the form:
+	- [0-255].[0-255].[0-255].[0-255]
+	- each group is called in octet
+	- at most there are 2^32, ~4.3 billion IPv4 addresses
+- ***IPv6***: 16 byte addresses of the form:
+	- [0-ffff]:[0-ffff]:...:[0-ffff] (x8)
+	- each group is known as a hextet
+	- leading 0s are ignored
+	- any number of consecutive all 0 hextets can be replaced with ::
+		- ex: 0000:0000:0000:0000:004f:13c2:0009:a2d2
+		- can be: :: 4f : 13c2 : 9 : a2d2
+	- IPv4 addresses can be represented as 5 0-hextets, 1 ffff hextet, and the IPv4 address
+		- 149.89.150.100 -> :: ffff: 139.89.150.100
+
+
 ## 12/18 Always tip your servers.
 Use sighandlers to remove server's pipe after Ctrl-C.
 
