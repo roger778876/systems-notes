@@ -1,4 +1,4 @@
-## 2/2 Socket to me.
+## 1/2, 1/3 Socket to me.
 
 **Socket**
 - a connection between 2 programs over a network
@@ -27,6 +27,33 @@
 		- can be: :: 4f : 13c2 : 9 : a2d2
 	- IPv4 addresses can be represented as 5 0-hextets, 1 ffff hextet, and the IPv4 address
 		- 149.89.150.100 -> :: ffff: 139.89.150.100
+	- there are 2^128 IPv6 addresses
+	
+	
+**Network Ports**
+- allow a single computer to run multiple services
+	- like a building with many apartments; building is IP, apartment is port
+- a socket combines an IP address and port
+- each computer has 2^16 (65,536) ports
+- some ports are reserved for specific services
+	- port 80: http
+	- port 22: ssh
+	- port 443: ssl
+- you can select any port, as long as it won't conflict with a service running on the desired computer
+	- ports < 1024 are reserved for system services and should generally not be used
+	
+**Network Connection Types**
+- ***Stream Sockets***
+	- reliable 2 way communication
+	- must be connected on both ends
+		- verifies with 3-way handshake
+	- data is received in same order as it is sent (not as easy as it sounds)
+	- most sockets use the Transmission Control Protocol (TCP)
+- ***Datagram Sockets***
+	- "Connectionless"; an established connection is not required
+	- data sent may be received out of order (or not at all)
+	- useful when speed is important; most media streaming services use datagram sockets; games 
+	- uses the User Datagram Protocol
 
 
 ## 12/18 Always tip your servers.
