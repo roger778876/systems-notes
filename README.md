@@ -1,3 +1,82 @@
+## 1/5 Stop, Collaborate, and listen
+
+**To use a socket:**
+1. Create the socket
+2. Bind it to an address and port (server)
+3. Listen and accept (server) or connect (client)
+4. Send/Receive data
+
+**socket <sys/socket.h>**
+- creates a socket
+- returns a socket descriptor (int that works like a file descriptor)
+- ```socket(DOMAIN, TYPE, PROTOCOL)```
+	- DOMAIN: type of address
+		- AF_INET or AF_INET6 (ipv4 vs ipv6)
+	- TYPE:
+		- SOCK_STREAM or SOCK_DGRAM
+	- PROTOCOL:
+		- combination of domain and type settings
+		- if set to 0, the operating system will set to correct protocol (TCP or UDP)
+	- ex: ```int sd = socket(AF_INET, SOCK_STREAM, 0);```
+
+**struct addrinfo**
+- system library calls use ```struct addrinfo``` to represent network addresses
+	- contain info like IP address, port, protocol, etc.
+- ```c
+		struct addrinfo
+			.ai_family
+				AF_INET: IPv4
+				AF_INET6: IPv6
+				AF_UNSPEC: IPv4 or IPv6
+			.ai_socktype
+				SOCK_STREAM
+				SOCK_DGRAM
+			.ai_flags
+				AI_PASSIVE: automatically set to any incoming IP address
+			.ai_addr
+				pointer to a struct sockaddr containing the IP address
+			.ai_addrlen
+				size of the address in bytes
+	```
+
+**getaddrinfo (sys/types.h)(sys/socket.h)(netdb.h)**
+- looks up info about the desired network address and get one or more matching struct addrinfo entries
+- ```getaddrinfo(NODE, SERVICE, HINTS, RESULTS);```
+	- NODE: 
+		- string containing an IP address or hostname to look up
+		- if NULL, will use the local machine's IP address
+	- SERVICE:
+		- string with a port number or service name (if the service is in /etc/services)
+	- HINTS:
+		- pointer to a struct addrinfo used to provide settings for the lookup (type of address, etc.)
+	- RESULTS:
+		- pointer to a struct addrinfo that will be a linked list containing entries for each matching address
+- getaddrinfo will allocate memory for all these new structs created
+
+**Using getaddrinfo**
+```c
+	struct addrinfo *hints, *results;
+	hints = (struct addrinfo *) calloc(1, sizeof(struct addrinfo));
+	hints->ai_family = AF_INET;
+	hints->ai_socktype = SOCK_STREAM; // creates TCP socket
+	hints->ai_flags = AI_PASSIVE; // only needed on server
+	SERVER: getaddrinfo(NULL, "80", hints, &results); // server sets node to NULL
+	CLIENT: getaddrinfo(" ip address ", " port number ", hints, &results);
+	...
+	free(hints);
+	freeaddrinfo(results);
+```
+
+**bind (sys/socket.h)**
+- for servers only
+- returns 0 or -1 for error
+- ```bind(SOCKET DESCRIPTOR, ADDRESS, ADDRESS LENGTH);```
+	- SOCKET DESCRIPTOR: return value of socket
+	- ADDRESS: pointer to a struct sockaddr representing the address
+	- ADDRESS LENGTH: size of address in bytes
+	- ADDRESS & ADDRESS LENGTH can be retrieved from getaddrinfo
+		
+
 ## 1/2, 1/3 Socket to me.
 
 **Socket**
@@ -53,7 +132,7 @@
 	- "Connectionless"; an established connection is not required
 	- data sent may be received out of order (or not at all)
 	- useful when speed is important; most media streaming services use datagram sockets; games 
-	- uses the User Datagram Protocol
+	- uses the User Datagram Protocol (UDP)
 
 
 ## 12/18 Always tip your servers.
