@@ -1,4 +1,5 @@
-## 1/5 Stop, Collaborate, and listen
+## 1/5, 1/8 Stop, Collaborate, and listen
+- sockets are bidirectional
 
 **To use a socket:**
 1. Create the socket
@@ -75,6 +76,76 @@
 	- ADDRESS: pointer to a struct sockaddr representing the address
 	- ADDRESS LENGTH: size of address in bytes
 	- ADDRESS & ADDRESS LENGTH can be retrieved from getaddrinfo
+	
+
+**listen <sys/socket.h>**
+- server only
+- set a socket to passively await a connection
+- needed for stream sockets
+- does not block
+- ```listen(SOCKET DESCRIPTOR, BACKLOG)```
+	- SOCKET DESCRIPTOR: return value of socket
+	- BACKLOG: 
+		- number of connections that can be queued up
+		- depending on the protocal, this may not do much
+
+**accept <sys/socket.h>**
+- server only
+- accepts the next client in the queue of a socket in the listen state
+- used for stream sockets
+- performs the server side of the 3 way handshake
+- cretes a new socket for communicating with the client, the listening socket is not modified
+- returns a descriptor to the new socket
+- blocks until a connection attempt is made
+- ```accept(SOCKET DESCRIPTOR, ADDRESS, ADDRESS LENGTH)```
+	- SOCKET DESCRIPTOR: descriptor for the listening socket
+	- ADDRESS: 
+		- pointer to a struct sockaddr_storage that will contain info about the new socket after accept succeeds
+	- ADDRESS LENGTH:
+		- pointer to a variable that will contain the size of the new socket address after accept succeeds
+		
+**Using listen and accept**
+```c
+	//create socket
+	int sd;
+	sd = socket(AF_INET, SOCK_STREAM, 0);
+	
+	//use getaddrinfo and bind
+	
+	int backlog = 10;
+	listen(sd, backlog);
+	
+	int client_socket;
+	socklen_t sock_size;
+	struct sockaddr_storage client_address;
+	
+	client_socket = accept(sd, (struct sockaddr *)&client_address, &sock_size);
+```
+
+**connect <sys/socket.h> <sys/types.h>**
+- client only
+- connects to a stream currently in the listening state
+- used for stream sockets
+- performs the client side of the three way handshake
+- binds the socket to an address and port
+- blocks until a connection is made (or fails)
+- ```connect(SOCKET DESCRIPTOR, ADDRESS, ADDRESS LENGTH)```
+	- SOCKET DESCRIPTOR: descriptor for the socket
+	- ADDRESS: pointer to a struct sockaddr representing the address
+	- ADDRESS LENGTH: size of the address in ny bists
+	- ADDRESS and ADDRESS LENGTH can be 
+	- note that the arguments mirror those of bind()
+
+```c
+	//create socket
+	int sd;
+	sd = socket(AF_INET, SOCK_STREAM, O);
+	
+	struct addrinfo *hints, *results;
+	//use getaddrinfo(...);
+	
+	connect(sd, results->ai_addr, results->ai_addrlen);
+```
 		
 
 ## 1/2, 1/3 Socket to me.
