@@ -1,3 +1,28 @@
+## 1/11 Cisco in an hour
+- layer models of networking
+	- network communications is often conceptualized into layers so people can work on specific components
+	- the bottom layer is the most concrete, each layer above becomes more abstract (less physical, more code)
+	- various competing models; ex: Open Systems Interconnections (OSI), TCP/IP
+	
+**TCP/IP Model layers**
+1. Application Layer
+2. Transport Layer
+3. Internet
+4. Link
+
+**Link Layer**
+	- point-to-point connection between devices on the same (local) network
+	- combines physically connecting computers with basic addressing and transmission protocols
+	- Physical connection:
+		- how to transmit bits between 2 computers (ex: ethernet, radio frequencies, fiber optics)
+		- Thicknet: a single coaxial cable runs along the network; vampire taps cut into cable & connect to computer
+		- Thinnet: single coaxial cable;
+		- problem is scalability
+		- Ethernet: multiple computers connect to one hub/switch
+			- Hub: broadcasts the data to all computers
+			- Switch: sends data to a specific computer
+
+
 ## 1/5, 1/8 Stop, Collaborate, and listen
 - sockets are bidirectional
 
@@ -147,7 +172,7 @@
 	connect(sd, results->ai_addr, results->ai_addrlen);
 ```
 		
-
+		
 ## 1/2, 1/3 Socket to me.
 
 **Socket**
