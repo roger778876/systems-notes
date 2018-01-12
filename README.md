@@ -1,5 +1,19 @@
 ## 1/12 Cisco in an hour 2: Electric Boogaloo
-
+**Internet Layer**
+	- transmission of data between 2 separate networks
+	- major features are addressing and routing
+	- Routers are physical devices that connect different local networks
+	- Internet layer traffic ignores the specifics of link layer traffic
+	- IP Packets:
+		- data sent over the internet layer is formatted into IP packets
+		- IPv4 packet header:
+			type,   size,   fragment info, ttl,   protocol, header, checksum
+			2bytes, 2bytes, 4bytes,        1byte, 1byte,    2bytes, 
+			type: IPv4 or IPv6 & length of header
+			size: total size of packet
+			fragment info: full payloads can be broken into multiple fragments; each packet will count the # of fragments and its individual fragment number 
+			ttl: time to live; max # of hops (routers) that a packet can make before reaching its destination
+	
 
 ## 1/11 Cisco in an hour
 - layer models of networking
@@ -30,6 +44,15 @@
 			- 6 byte hex address
 			- MAC addresses only need to be unique on the same local network
 		- data needs to be sent in a standardized format (Frames)
+			- Ethernet Frames
+			- each frame has format:
+				prefix, dest,   source, type, data, checksum
+				8bytes, 6bytes, 6bytes, 2bytes,   , 4 bytes
+				- prefix: 10101010 x7 ... + 10101011
+				- dest & source: MAC addresses
+				- type: the type of frame
+				- data: variable size depending on content; Max Transmission Unit (MTU) = 1500 bytes
+				- checksum: ensures integrity of data
 
 
 ## 1/5, 1/8 Stop, Collaborate, and listen
