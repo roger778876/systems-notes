@@ -7,13 +7,14 @@
 	- IP Packets:
 		- data sent over the internet layer is formatted into IP packets
 		- IPv4 packet header:
-			type,   size,   fragment info, ttl,   protocol, header, checksum
+			type,   size,   fragment info, ttl,   protocol, header checksum
 			2bytes, 2bytes, 4bytes,        1byte, 1byte,    2bytes, 
 			type: IPv4 or IPv6 & length of header
 			size: total size of packet
 			fragment info: full payloads can be broken into multiple fragments; each packet will count the # of fragments and its individual fragment number 
 			ttl: time to live; max # of hops (routers) that a packet can make before reaching its destination
-	
+			protocol: TCP/UDP
+			header checksum: only a checksum of the header, not the full packet
 
 ## 1/11 Cisco in an hour
 - layer models of networking
