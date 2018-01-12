@@ -1,3 +1,6 @@
+## 1/12 Cisco in an hour 2: Electric Boogaloo
+
+
 ## 1/11 Cisco in an hour
 - layer models of networking
 	- network communications is often conceptualized into layers so people can work on specific components
@@ -21,6 +24,12 @@
 		- Ethernet: multiple computers connect to one hub/switch
 			- Hub: broadcasts the data to all computers
 			- Switch: sends data to a specific computer
+	- in order for data to be sent between 2 computers:
+		- each computer needs a unique MAC address
+			- Media Access Control address
+			- 6 byte hex address
+			- MAC addresses only need to be unique on the same local network
+		- data needs to be sent in a standardized format (Frames)
 
 
 ## 1/5, 1/8 Stop, Collaborate, and listen
