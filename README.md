@@ -4,8 +4,15 @@ Routing
 - routers may break IPv4 packets into fragments
 - When a router receives a packet, it has 2 options:
 	1. Send that packet to the attached local network, OR
-	2.69 Forward that packet to a different router
+	2. Forward that packet to a different router
 	
+Differences between IPv4 & IPv6:
+- address space (2^32 vs 2^128)
+- packet format; IPv6 packet headers have less information, no checksum or fragment information
+- MTU; IPv6 can allot for 2^32 (jumbograms)
+- IPv6 puts more work onto Link Layer devices & individual hosts (computers)
+	- doesn't fragment packets; relies on other devices to take advantage of jumbograms
+	- has no checksum; assumes Link layer devices and hosts will check for data integrity
 
 
 ## 1/12, 1/16 Cisco in an hour 2: Electric Boogaloo
