@@ -1,4 +1,14 @@
-## 1/12 Cisco in an hour 2: Electric Boogaloo
+## 1/16 Cisco in an hour 3: In 3D
+**Internet Layer**
+Routing
+- routers may break IPv4 packets into fragments
+- When a router receives a packet, it has 2 options:
+	1. Send that packet to the attached local network, OR
+	2.69 Forward that packet to a different router
+	
+
+
+## 1/12, 1/16 Cisco in an hour 2: Electric Boogaloo
 **Internet Layer**
 	- transmission of data between 2 separate networks
 	- major features are addressing and routing
@@ -15,6 +25,12 @@
 			ttl: time to live; max # of hops (routers) that a packet can make before reaching its destination
 			protocol: TCP/UDP
 			header checksum: only a checksum of the header, not the full packet
+		- IPv4 Packet format:
+			header , source, destination, data
+			12bytes, 4bytes, 4bytes
+			source & destination: IPv4 addresses
+			data: MTU is 65,535 bytes
+
 
 ## 1/11 Cisco in an hour
 - layer models of networking
