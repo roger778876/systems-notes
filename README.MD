@@ -8,6 +8,15 @@
 **Application Layer**
 - top most layer (everything else)
 
+**Data Encapsulation**
+- when data crosses from an upper layer to a lower layer, layer-specific metadata is added to help transmission
+- Application > Transport; UDP/TCP headers are added, including network port info
+- Transport > Network; data (including transport headers) is packaged into IP packets
+- Network > Link; packets (including IP & transport headers) are packaged into Ethernet frames
+
+**Data Decapsulation**
+- when data crosses back up a layer, the packaging from the lower layer is removed
+
 
 ## 1/16 Cisco in an hour 3: In 3D
 **Internet Layer**
