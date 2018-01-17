@@ -1,3 +1,14 @@
+## Cisco in an hour IV: A new hope
+**Transport Layer**
+- computer to computer connection over a network
+- unconcerned with the individual hops of layer 3 traffic
+- uses network ports
+- TCP and UDP are transport layer protocols (computer to computer)
+
+**Application Layer**
+- top most layer (everything else)
+
+
 ## 1/16 Cisco in an hour 3: In 3D
 **Internet Layer**
 Routing
@@ -12,7 +23,7 @@ Differences between IPv4 & IPv6:
 - MTU; IPv6 can allot for 2^32 (jumbograms)
 - IPv6 puts more work onto Link Layer devices & individual hosts (computers)
 	- doesn't fragment packets; relies on other devices to take advantage of jumbograms
-	- has no checksum; assumes Link layer devices and hosts will check for data integrity
+	- has no checksum; assumes Link layer devices and hosts will check for data integrity if needed
 
 
 ## 1/12, 1/16 Cisco in an hour 2: Electric Boogaloo
